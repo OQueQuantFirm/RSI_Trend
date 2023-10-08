@@ -61,6 +61,15 @@ This guide explains how to use the provided Python code to perform Relative Stre
 
 Open the provided Python script (`Tradin_V1.0.ipynb`) and follow the instructions below to customize the code:
 
+# Call execute_order_book_analysis directly for your single symbol analysis, the code is located at the bottom
+
+   ```python
+   symbol_to_analyze = 'XRP/USDT:USDT'
+   leverage = 10  # Define your desired leverage
+   amount = 6000  # Define your desired amount
+   execute_order_book_analysis(symbol_to_analyze, leverage, amount)
+   ```
+
 1. **Symbol and Timeframe**: Set the `symbol_to_analyze` variable to the trading pair you want to analyze, and adjust the timeframe by modifying the `ohlcv_data = self.exchange.fetch_ohlcv(symbol, '15m')` line.
 
    ```python
