@@ -2,7 +2,7 @@
 
 
 1. **Python & Anaconda Installation:**
-   - Make sure you have Python installed on your Windows machine. You can download it from [python.org](https://www.python.org/downloads/).
+   - Make sure you have Python installed on your Windows machine. You can download it from [python.org](https://www.python.org/downloads/windows/).
    - During installation, check the option to add Python to your system PATH.
    - Download Anaconda for Windows from [https://www.anaconda.com/products/distribution](https://www.anaconda.com/products/distribution).
    - Follow the installation instructions provided on the website.
