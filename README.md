@@ -1,7 +1,11 @@
 ### Prerequisites:
-1. **Python Installation:**
+
+
+1. **Python & Anaconda Installation:**
    - Make sure you have Python installed on your Windows machine. You can download it from [python.org](https://www.python.org/downloads/).
    - During installation, check the option to add Python to your system PATH.
+   - Download Anaconda for Windows from [https://www.anaconda.com/products/distribution](https://www.anaconda.com/products/distribution).
+   - Follow the installation instructions provided on the website.
 
 2. **Git Installation:**
    - Install Git for Windows from [git-scm.com](https://git-scm.com/download/win).
@@ -13,13 +17,13 @@
    - Navigate to the directory where you want to clone the repository.
    - Run the following command:
      ```bash
-     git clone https://github.com/your-username/your-repository.git
+     git clone https://github.com/OQueQuantFirm/RSI_Trend.git
      ```
 
 4. **Install Required Libraries:**
    - Navigate to the project directory:
      ```bash
-     cd your-repository
+     cd RSI_Trend
      ```
    - Install the required Python libraries:
      ```bash
@@ -35,27 +39,70 @@
      PASSPHRASE=your_passphrase
      ```
 
-### Running the Program:
+### Step 6: Run the Notebook
 
-6. **Run the Python Script:**
-   - Execute your Python script or Jupyter Notebook:
-     ```bash
-     python your_script.py
-     ```
-     or
-     ```bash
-     jupyter notebook your_notebook.ipynb
-     ```
+   - In the Jupyter Notebook, run the cells.
+
+   - Ensure that the required libraries are imported without any errors.
+
+   - The code will run, fetch data, analyze the order book, and log results.
+
 
 7. **Monitor Output:**
    - The program will print order book analysis results and trading signals to the console.
    - Check the logs in the `arb_rsi_trend.log` file for detailed information.
+
+
+# RSI Trend Analysis with Order Book Imbalance
+
+This guide explains how to use the provided Python code to perform Relative Strength Index (RSI) trend analysis with order book imbalance on the KuCoin Futures exchange. The code is designed to analyze the order book, calculate RSI, and generate trading signals based on certain conditions. Additionally, it allows you to customize symbols and timeframes for analysis.
+
+### Code Customization
+
+Open the provided Python script (`Tradin_V1.0.ipynb`) and follow the instructions below to customize the code:
+
+1. **Symbol and Timeframe**: Set the `symbol_to_analyze` variable to the trading pair you want to analyze, and adjust the timeframe by modifying the `ohlcv_data = self.exchange.fetch_ohlcv(symbol, '15m')` line.
+
+   ```python
+   symbol_to_analyze = 'YOUR_SYMBOL_HERE'  # Example: 'BTC/USDT:USDT'
+   ```
+
+2. **Leverage and Amount**: Set the leverage and trading amount according to your preferences.
+
+   ```python
+   leverage = 10  # Example: 10X leverage
+   amount = 500   # Example: 500 units of trading token
+   ```
+
+3. **Take Profit and Stop Loss Percentages**: Define the take profit and stop loss percentages.
+
+   ```python
+   TAKE_PROFIT_PERCENTAGE = 13.5   # Example: 13.5
+   STOP_LOSS_PERCENTAGE = 13.5    # Example: 13.5
+   ```
+
+4. **Logging and CSV File**: Customize the logging configuration and CSV file settings if needed.
+
+   ```python
+   log_file_path = 'arb_rsi_trend.log'  # Specify the log file path by changing the symbol name
+   ```
+
+   ```python
+   file_path = "arb_rsi_trend.csv"  # Specify the CSV file path by changing the symbol name
+   ```
+
+The script will continuously fetch OHLCV data, analyze the order book, and generate trading signals based on RSI and order book imbalance.
+
+## Additional Notes
+
+- The code utilizes the [CCXT](https://github.com/ccxt/ccxt) library for interacting with the KuCoin Futures API.
+
+- The script is designed to run in a loop, fetching and analyzing data every 2 minutes (adjustable in the `time.sleep(120)` line).
+
+Feel free to experiment with different symbols, timeframes, and parameters to adapt the code to your trading preferences.
 
 ### Notes:
 - Ensure your API keys have the necessary permissions and are funded for trading.
 - Always be cautious when running trading programs, especially with real funds.
 - Periodically check for updates to libraries and the repository.
 
-By providing these instructions, users can easily set up and run your trading program on Windows. Additionally, you may want to include a disclaimer about the risks associated with trading and the importance of testing in a simulated environment before deploying with real funds.
-# RSI_Trend
-Order Book Imbalance analysis with RSI Trading Program for Kucoin Futures trading. 
