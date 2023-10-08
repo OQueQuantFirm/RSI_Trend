@@ -27,7 +27,7 @@
      ```
 
 5. **Create Environment Variables:**
-   - Create a file named `.env` in the project directory.
+   - Rename example.env to `.env` in the project directory.
    - Add the following lines to the `.env` file, replacing placeholders with your KuCoin Futures API credentials:
      ```plaintext
      API_KEY=your_api_key
