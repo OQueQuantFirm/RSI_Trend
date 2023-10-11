@@ -1,7 +1,42 @@
 ### Title: Understanding and Running a Cryptocurrency Trading Bot with RSI and Order Book Analysis
 
-### Introduction
-Explain the purpose of the tutorial and what readers will learn.
+## Overview of the RSI Trend Strategy
+The RSI (Relative Strength Index) trend strategy is a trading approach that combines technical analysis indicators, specifically the RSI, with order book analysis. The strategy aims to identify potential trend reversals or continuations in the price of an asset and generate trading signals accordingly.
+
+## 1. **Relative Strength Index (RSI):**
+   - The RSI is a momentum oscillator that measures the speed and change of price movements. It ranges from 0 to 100 and is typically used to identify overbought or oversold conditions in a market. Traditional RSI signals include:
+      - **Overbought (RSI > 70):** Indicates a potential sell signal as the asset may be overvalued, and a reversal might occur.
+      - **Oversold (RSI < 30):** Indicates a potential buy signal as the asset may be undervalued, and a reversal might occur.
+
+## 2. **Order Book Analysis:**
+   - Order book analysis involves studying the current bids and asks in the market. It provides insights into the supply and demand for an asset at different price levels.
+   - The strategy incorporates order book imbalance, which is the difference between the total volume of bids and asks. A positive imbalance suggests more buying interest, while a negative imbalance suggests more selling interest.
+
+## Combined Strategy:
+
+1. **RSI Analysis:**
+   - The strategy monitors the RSI of the asset over a specified period (e.g., 14 periods).
+   - Bullish Divergence: If the RSI is below a certain threshold (e.g., 28) during a positive order book imbalance, it may indicate a bullish divergence, suggesting a potential buying opportunity.
+   - Bearish Divergence: If the RSI is above a certain threshold (e.g., 72) during a negative order book imbalance, it may indicate a bearish divergence, suggesting a potential selling opportunity.
+
+2. **Order Book Analysis:**
+   - The strategy calculates the order book imbalance percentage based on the total volume of bids and asks.
+   - A positive imbalance indicates more buying interest, while a negative imbalance indicates more selling interest.
+
+3. **Trading Signals:**
+   - Based on the combined analysis of RSI and order book imbalance, the strategy generates trading signals:
+      - **Validated Bullish Divergence (Long):** Indicates a potential buying opportunity with a proposed entry price derived from the order book (e.g., highest bid).
+      - **Validated Bearish Divergence (Short):** Indicates a potential selling opportunity with a proposed entry price derived from the order book (e.g., lowest ask).
+      - **No Entry:** If no favorable conditions are met.
+
+4. **Risk Management:**
+   - The strategy incorporates risk management by setting take-profit and stop-loss levels based on a percentage of the entry price. This helps limit potential losses and secure profits.
+
+5. **Continuous Monitoring:**
+   - The strategy continuously monitors the market conditions, periodically fetching and analyzing OHLCV data and order book information.
+   - Trading signals, along with relevant information, are logged and saved to a CSV file for record-keeping.
+
+This combined RSI trend strategy aims to provide a systematic approach to trading by considering both momentum (RSI) and market depth (order book analysis). It allows for automation and continuous monitoring, enabling timely execution of trades based on predefined criteria.
 
 ### Prerequisites
 List any prerequisites such as Python, required libraries, and API keys.
@@ -174,7 +209,7 @@ List any prerequisites such as Python, required libraries, and API keys.
       ```
    
 5. **Understanding Order Book Analysis**
-       Certainly! The `fetch_ohlcv_and_analyze_order_book` function is responsible for retrieving OHLCV (Open, High, Low, Close, Volume) data, calculating indicators such as RSI (Relative Strength Index) and ATR (Average True Range), and analyzing the order book for a given trading symbol. Let's break down the function:
+       The `fetch_ohlcv_and_analyze_order_book` function is responsible for retrieving OHLCV (Open, High, Low, Close, Volume) data, calculating indicators such as RSI (Relative Strength Index) and ATR (Average True Range), and analyzing the order book for a given trading symbol. Let's break down the function:
    
    ```python
    def fetch_ohlcv_and_analyze_order_book(self, symbol, depth=100, max_retries=3):
@@ -288,7 +323,7 @@ List any prerequisites such as Python, required libraries, and API keys.
       - The function returns the calculated values, including RSI, current imbalance percentage, OHLCV data, and order book data.
    
 6. **RSI and Divergence Detection**
-       Certainly! Let's explore the `calculate_rsi` function and understand how it calculates the Relative Strength Index (RSI), as well as the conditions for detecting bullish and bearish RSI divergences:
+       The `calculate_rsi` function calculates the Relative Strength Index (RSI), as well as the conditions for detecting bullish and bearish RSI divergences:
    
    ```python
    def calculate_rsi(self, close_prices, high_prices, low_prices, atr, period=14):
@@ -512,7 +547,7 @@ def create_order_with_percentage_levels(self, side, entry_price):
 
 
 10. **Saving and Loading Trading Signals**
-    
+        
    These functions facilitate the persistence of trading signals, allowing the program to save signals to a CSV file and load historical signals from the same file. The CSV file serves as a record of past trading signals with relevant information such as timestamp, trading signal, proposed entry price, order book imbalance, and RSI.
 
 ```python
@@ -581,18 +616,18 @@ def load_trading_signals_from_csv(self, file_path):
     return historical_signals
 ```
 
-**`save_trading_signals_to_csv` Function:**
-- This function saves the trading signals to a CSV file (`btc_rsi_trend.csv`).
-- It checks whether the file already exists and opens it in append mode.
-- If the file is newly created, it writes the header with field names.
-- It then iterates over the trading signals stored in `self.trading_signals_df` and writes each signal as a row in the CSV file.
-
-**`load_trading_signals_from_csv` Function:**
-- This function loads historical trading signals from the CSV file specified by the `file_path`.
-- It uses `pd.read_csv` to read the CSV file into a DataFrame (`historical_signals`).
-- NaN values in the "Trading Signal" column are replaced with 'No Entry'.
-- It reads the CSV file using `csv.DictReader` to check for required columns and then constructs a list of signals.
-- The list is converted into a DataFrame (`historical_signals`).
+   **`save_trading_signals_to_csv` Function:**
+   - This function saves the trading signals to a CSV file (`btc_rsi_trend.csv`).
+   - It checks whether the file already exists and opens it in append mode.
+   - If the file is newly created, it writes the header with field names.
+   - It then iterates over the trading signals stored in `self.trading_signals_df` and writes each signal as a row in the CSV file.
+   
+   **`load_trading_signals_from_csv` Function:**
+   - This function loads historical trading signals from the CSV file specified by the `file_path`.
+   - It uses `pd.read_csv` to read the CSV file into a DataFrame (`historical_signals`).
+   - NaN values in the "Trading Signal" column are replaced with 'No Entry'.
+   - It reads the CSV file using `csv.DictReader` to check for required columns and then constructs a list of signals.
+   - The list is converted into a DataFrame (`historical_signals`).
 
 11. **Executing the Trading Loop**
     This function forms the core of the trading algorithm, continuously fetching data, analyzing the order book, generating signals, and executing trades based on predefined conditions. The loop runs indefinitely, making it a key component for automated trading:
@@ -649,16 +684,15 @@ def execute_order_book_analysis(self):
         time.sleep(60)
 ```
 
-**Explanation:**
-- The `execute_order_book_analysis` function contains an infinite loop (`while True`) to continuously analyze the order book.
-- Inside the loop, it fetches OHLCV data and performs order book analysis using the `fetch_ohlcv_and_analyze_order_book` function.
-- It generates trading signals and proposed entry prices based on RSI and order book imbalance using the `generate_trading_signal` function.
-- It gets the current timestamp and creates a new signal dictionary (`new_signal`) containing relevant information.
-- The information is printed to the console and appended to `self.trading_signals_df`, which stores historical trading signals.
-- The `save_trading_signals_to_csv` function is called to update the CSV file with the new signal.
-- If a valid trading signal (`"Validated Bullish"` or `"Validated Bearish"`) is generated and a proposed entry price exists, it calls the `create_order_with_percentage_levels` function to execute orders.
-- The loop then waits for 60 seconds (`time.sleep(60)`) before starting the next iteration.
-
+   **Explanation:**
+   - The `execute_order_book_analysis` function contains an infinite loop (`while True`) to continuously analyze the order book.
+   - Inside the loop, it fetches OHLCV data and performs order book analysis using the `fetch_ohlcv_and_analyze_order_book` function.
+   - It generates trading signals and proposed entry prices based on RSI and order book imbalance using the `generate_trading_signal` function.
+   - It gets the current timestamp and creates a new signal dictionary (`new_signal`) containing relevant information.
+   - The information is printed to the console and appended to `self.trading_signals_df`, which stores historical trading signals.
+   - The `save_trading_signals_to_csv` function is called to update the CSV file with the new signal.
+   - If a valid trading signal (`"Validated Bullish"` or `"Validated Bearish"`) is generated and a proposed entry price exists, it calls the `create_order_with_percentage_levels` function to execute orders.
+   - The loop then waits for 60 seconds (`time.sleep(60)`) before starting the next iteration.
 
 12. **Running the Trading Bot**
     By following these steps, you should be able to set up and run the trading bot in a Jupyter Notebook environment on Windows.
@@ -744,105 +778,3 @@ Certainly! Here are some additional resources for further learning:
 ### Note
 
 Always ensure that you thoroughly understand the concepts and risks associated with algorithmic trading, and consider consulting with financial professionals before engaging in live trading activities.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### Prerequisites:
-
-
-
-
-
-
-
-
-### Step 6: Run the Notebook
-
-   - In the Jupyter Notebook, run the cells.
-
-   - Ensure that the required libraries are imported without any errors.
-
-   - The code will run, fetch data, analyze the order book, and log results.
-
-
-7. **Monitor Output:**
-   - The program will print order book analysis results and trading signals to the console.
-   - Check the logs in the `btc_rsi_trend.log` file for detailed information.
-
-
-# RSI Trend Analysis with Order Book Imbalance
-
-This guide explains how to use the provided Python code to perform Relative Strength Index (RSI) trend analysis with order book imbalance on the KuCoin Futures exchange. The code is designed to analyze the order book, calculate RSI, and generate trading signals based on certain conditions. Additionally, it allows you to customize symbols and timeframes for analysis.
-
-### Code Customization
-
-Open the provided Python script (`BTCUSDT_V1.0.ipynb`) and follow the instructions below to customize the code:
-
-# Call execute_order_book_analysis directly for your single symbol analysis, the code is located at the bottom
-
-   ```python
-   symbol_to_analyze = 'BTC/USDT:USDT'
-   leverage = 10  # Define your desired leverage
-   amount = 1  # Define your desired amount
-   execute_order_book_analysis(symbol_to_analyze, leverage, amount)
-   ```
-
-1. **Symbol and Timeframe**: Set the `symbol_to_analyze` variable to the trading pair you want to analyze, and adjust the timeframe by modifying the `ohlcv_data = self.exchange.fetch_ohlcv(symbol, '15m')` line.
-
-   ```python
-   symbol_to_analyze = 'YOUR_SYMBOL_HERE'  # Example: 'BTC/USDT:USDT'
-   ```
-
-2. **Leverage and Amount**: Set the leverage and trading amount according to your preferences.
-
-   ```python
-   leverage = 10  # Example: 10X leverage
-   amount = 5   # Example: 5 units of trading token
-   ```
-
-3. **Take Profit and Stop Loss Percentages**: Define the take profit and stop loss percentages.
-
-   ```python
-   TAKE_PROFIT_PERCENTAGE = 1.35   # Example: 13.5%
-   STOP_LOSS_PERCENTAGE = 1.35    # Example: 13.5%
-   ```
-
-4. **Logging and CSV File**: Customize the logging configuration and CSV file settings if needed.
-
-   ```python
-   log_file_path = 'btc_rsi_trend.log'  # Specify the log file path by changing the symbol name
-   ```
-
-   ```python
-   file_path = "btc_rsi_trend.csv"  # Specify the CSV file path by changing the symbol name
-   ```
-
-The script will continuously fetch OHLCV data, analyze the order book, and generate trading signals based on RSI and order book imbalance.
-
-## Additional Notes
-
-- The code utilizes the [CCXT](https://github.com/ccxt/ccxt) library for interacting with the KuCoin Futures API.
-
-- The script is designed to run in a loop, fetching and analyzing data every 2 minutes (adjustable in the `time.sleep(120)` line).
-
-Feel free to experiment with different symbols, timeframes, and parameters to adapt the code to your trading preferences.
-
-### Notes:
-- Ensure your API keys have the necessary permissions and are funded for trading.
-- Always be cautious when running trading programs, especially with real funds.
-- Periodically check for updates to libraries and the repository.
-
