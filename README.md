@@ -50,7 +50,7 @@
 
 7. **Monitor Output:**
    - The program will print order book analysis results and trading signals to the console.
-   - Check the logs in the `arb_rsi_trend.log` file for detailed information.
+   - Check the logs in the `btc_rsi_trend.log` file for detailed information.
 
 
 # RSI Trend Analysis with Order Book Imbalance
@@ -64,9 +64,9 @@ Open the provided Python script (`Tradin_V1.0.ipynb`) and follow the instruction
 # Call execute_order_book_analysis directly for your single symbol analysis, the code is located at the bottom
 
    ```python
-   symbol_to_analyze = 'XRP/USDT:USDT'
+   symbol_to_analyze = 'BTC/USDT:USDT'
    leverage = 10  # Define your desired leverage
-   amount = 6000  # Define your desired amount
+   amount = 1  # Define your desired amount
    execute_order_book_analysis(symbol_to_analyze, leverage, amount)
    ```
 
@@ -80,24 +80,24 @@ Open the provided Python script (`Tradin_V1.0.ipynb`) and follow the instruction
 
    ```python
    leverage = 10  # Example: 10X leverage
-   amount = 500   # Example: 500 units of trading token
+   amount = 5   # Example: 5 units of trading token
    ```
 
 3. **Take Profit and Stop Loss Percentages**: Define the take profit and stop loss percentages.
 
    ```python
-   TAKE_PROFIT_PERCENTAGE = 13.5   # Example: 13.5
-   STOP_LOSS_PERCENTAGE = 13.5    # Example: 13.5
+   TAKE_PROFIT_PERCENTAGE = 1.35   # Example: 13.5%
+   STOP_LOSS_PERCENTAGE = 1.35    # Example: 13.5%
    ```
 
 4. **Logging and CSV File**: Customize the logging configuration and CSV file settings if needed.
 
    ```python
-   log_file_path = 'arb_rsi_trend.log'  # Specify the log file path by changing the symbol name
+   log_file_path = 'btc_rsi_trend.log'  # Specify the log file path by changing the symbol name
    ```
 
    ```python
-   file_path = "arb_rsi_trend.csv"  # Specify the CSV file path by changing the symbol name
+   file_path = "btc_rsi_trend.csv"  # Specify the CSV file path by changing the symbol name
    ```
 
 The script will continuously fetch OHLCV data, analyze the order book, and generate trading signals based on RSI and order book imbalance.
