@@ -59,7 +59,7 @@ This guide explains how to use the provided Python code to perform Relative Stre
 
 ### Code Customization
 
-Open the provided Python script (`Tradin_V1.0.ipynb`) and follow the instructions below to customize the code:
+Open the provided Python script (`BTCUSDT_V1.0.ipynb`) and follow the instructions below to customize the code:
 
 # Call execute_order_book_analysis directly for your single symbol analysis, the code is located at the bottom
 
